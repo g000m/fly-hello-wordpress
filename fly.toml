@@ -1,27 +1,31 @@
-app = "fly-hello-wordpress"
+app = "wp-with-volume"
+primary_region = 'iad'
+kill_signal = 'SIGINT'
+
+[[vm]]
+  memory = '0.25gb'
+  cpu_kind = 'shared'
+  cpus = 1
 
 [env]
 WORDPRESS_CONFIG_EXTRA = "define(\"MYSQL_CLIENT_FLAGS\", MYSQLI_CLIENT_SSL);"
 
-[[services]]
-# note: the default WordPress image listens on port 80, rather than the more common 8080:
-internal_port = 80
-protocol = "tcp"
-
-[services.concurrency]
-hard_limit = 50
-soft_limit = 25
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
 
 [[services.ports]]
 handlers = ["tls", "http"]
 port = 443
 
-[[services.ports]]
-handlers = ["http"]
-port = 80
-force_https = true
 
-[[services.tcp_checks]]
-grace_period = "1s"
-interval = 5000
-timeout = 2000
+[mounts]
+  source="wp_content_volume"
+  destination="/var/www/html/wp-content"
+  initial_size = "1gb"
+
+[deploy]
+#  release_command = "/usr/local/bin/install-sqlite-plugin.sh"
