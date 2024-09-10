@@ -27,5 +27,3 @@ port = 443
   destination="/var/www/html/wp-content"
   initial_size = "1gb"
 
-[deploy]
-#  release_command = "/usr/local/bin/install-sqlite-plugin.sh"
