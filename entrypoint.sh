@@ -1,9 +1,12 @@
-#!/usr/bin/env bash
-set -Eeuo pipefail
+#!/bin/bash
+set -e
 
-# Check if the plugin is already installed to avoid redundant operations
-if [ ! -d /var/www/html/wp-content/plugins/sqlite-database-integration ]; then
-    # Install the SQLite plugin using the install-sqlite-plugin.sh script
-    /usr/local/bin/install-sqlite-plugin.sh
-fi
+echo "Running custom setup..."
 
+# For example: installing a plugin
+/usr/local/bin/install-sqlite-plugin.sh
+
+echo "Custom setup done!"
+
+# Call the original entrypoint with the provided arguments
+exec docker-entrypoint.sh "$@"

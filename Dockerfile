@@ -17,4 +17,5 @@ COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the entrypoint script
-#CMD ["install-sqlite-plugin.sh"]
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["apache2-foreground"]
