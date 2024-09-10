@@ -15,4 +15,4 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 VOLUME ["/var/www/html/wp-content"]
 
 COPY --chown=www-data:www-data ./install-sqlite-plugin.sh /var/www/html/install-sqlite-plugin.sh
-
+RUN chmod u+x /var/www/html/install-sqlite-plugin.sh
