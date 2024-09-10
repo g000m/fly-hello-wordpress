@@ -1,5 +1,8 @@
 #!/bin/bash
-# This script will handle plugin installation
+
+# Download and unzip the SQLite plugin
 curl -O https://downloads.wordpress.org/plugin/sqlite-database-integration.zip
-unzip sqlite-database-integration.zip -d /var/www/html/wp-content/plugins/
+unzip -o sqlite-database-integration.zip -d /var/www/html/wp-content/plugins/
+
+# Set correct ownership
 chown -R www-data:www-data /var/www/html/wp-content/plugins/sqlite-database-integration
