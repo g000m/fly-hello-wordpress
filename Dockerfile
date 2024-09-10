@@ -4,6 +4,11 @@ FROM wordpress:latest
 # Install necessary tools
 RUN apt update -y && apt install -y vim-tiny unzip
 
+COPY ./install-sqlite-plugin.sh /usr/local/bin/install-sqlite-plugin.sh
+RUN chmod +x /usr/local/bin/install-sqlite-plugin.sh
+
+COPY ./ks_entrypoint.sh /usr/local/bin/ks_entrypoint.sh
+RUN chmod +x /usr/local/bin/ks_entrypoint.sh
 
 
 # Install WP-CLI
@@ -12,7 +17,4 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mv wp-cli.phar /usr/local/bin/wp \
     && wp --info
 
-VOLUME ["/var/www/html/wp-content"]
 
-COPY --chown=www-data:www-data ./install-sqlite-plugin.sh /var/www/html/install-sqlite-plugin.sh
-RUN chmod u+x /var/www/html/install-sqlite-plugin.sh
