@@ -16,6 +16,11 @@ COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# download & install wp-cli
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /usr/local/bin/wp
+
 # Set the entrypoint script
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["apache2-foreground"]
