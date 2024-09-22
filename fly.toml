@@ -7,6 +7,11 @@ kill_signal = 'SIGINT'
   cpu_kind = 'shared'
   cpus = 1
 
+[mounts]
+  source="wp_content_volume"
+  destination="/var/www/html/wp-content"
+  initial_size = "1gb" # 1gb is default & minimum
+
 [env]
 WORDPRESS_CONFIG_EXTRA = "define(\"MYSQL_CLIENT_FLAGS\", MYSQLI_CLIENT_SSL);"
 
@@ -22,8 +27,4 @@ handlers = ["tls", "http"]
 port = 443
 
 
-[mounts]
-  source="wp_content_volume"
-  destination="/var/www/html/wp-content"
-  initial_size = "1gb"
 

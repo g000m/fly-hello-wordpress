@@ -10,14 +10,13 @@ RUN apt update -y && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy the plugin installer script to a temporary location and make it executable
-COPY ./install-sqlite-plugin.sh /usr/local/bin/install-sqlite-plugin.sh
-RUN chmod +x /usr/local/bin/install-sqlite-plugin.sh
-
-# Copy the entrypoint script to ensure the plugin is installed after the volume is mounted and make it executable
-COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Download and extract the SQLite plugin, set correct ownership, and clean up
+RUN curl -O https://downloads.wordpress.org/plugin/sqlite-database-integration.zip && \
+    tar -xf sqlite-database-integration.zip -C /var/www/html/wp-content/plugins/ && \
+    chown -R www-data:www-data /var/www/html/wp-content/plugins/sqlite-database-integration && \
+    cp -p /var/www/html/wp-content/plugins/sqlite-database-integration/db.copy /var/www/html/wp-content/db.php && \
+    rm sqlite-database-integration.zip
 
 # Set the entrypoint script
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
