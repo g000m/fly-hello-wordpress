@@ -12,8 +12,6 @@ kill_signal = 'SIGINT'
   destination = '/var/lib/mysql'
 
 [env]
-  MARIADB_DATABASE = 'database_master'
-  MARIADB_USER = 'useradmin'
   WORDPRESS_CONFIG_EXTRA = "define('WP_HOME', 'https://fly.kitestringstudio.com'); define( 'WP_SITEURL', WP_HOME );"
 
 [http_service]
