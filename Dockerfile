@@ -1,11 +1,12 @@
 # see https://hub.docker.com/_/wordpress for alternative tags you can use
 FROM wordpress:latest
 
-
 RUN apt update -y && apt install -y vim-tiny
 
 COPY .htaccess /var/www/html/.htaccess
 RUN chown www-data:www-data /var/www/html/.htaccess
+
+COPY custom.ini $PHP_INI_DIR/conf.d/
 
 COPY update_cloudflare_ips.sh /usr/local/bin/update_cloudflare_ips.sh
 RUN chmod +x /usr/local/bin/update_cloudflare_ips.sh

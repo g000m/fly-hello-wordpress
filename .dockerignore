@@ -4,6 +4,7 @@
 # 2. Then add back just the files/directories the image needs to include
 !.htaccess
 !update_cloudflare_ips.sh
+!custom.ini
 
 # 3. Bonus: ignore unnecessary files that may be inside those allowed directories
 **/*~

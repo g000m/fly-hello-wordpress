@@ -12,7 +12,7 @@ kill_signal = 'SIGINT'
   destination = '/var/lib/mysql'
 
 [env]
-  WORDPRESS_CONFIG_EXTRA = "define('WP_HOME', 'https://fly.kitestringstudio.com'); define( 'WP_SITEURL', WP_HOME );"
+  WORDPRESS_CONFIG_EXTRA = "define('WP_HOME', 'https://fly.kitestringstudio.com'); define( 'WP_SITEURL', WP_HOME ); define('WP_MEMORY_LIMIT', '40M'); define('WP_MAX_MEMORY_LIMIT', '160M');"
 
 [http_service]
   internal_port = 80
