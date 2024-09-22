@@ -1,27 +1,25 @@
-app = "fly-hello-wordpress"
+app = 'wordpress-one'
+primary_region = 'iad'
+kill_signal = 'SIGINT'
+
+[[vm]]
+  memory = '0.25gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[[mounts]]
+  source = 'maria_storage'
+  destination = '/var/lib/mysql'
 
 [env]
-WORDPRESS_CONFIG_EXTRA = "define(\"MYSQL_CLIENT_FLAGS\", MYSQLI_CLIENT_SSL);"
+  MARIADB_DATABASE = 'database_master'
+  MARIADB_USER = 'useradmin'
+  WORDPRESS_CONFIG_EXTRA = "define('WP_HOME', 'https://fly.kitestringstudio.com'); define( 'WP_SITEURL', WP_HOME );"
 
-[[services]]
-# note: the default WordPress image listens on port 80, rather than the more common 8080:
-internal_port = 80
-protocol = "tcp"
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
 
-[services.concurrency]
-hard_limit = 50
-soft_limit = 25
-
-[[services.ports]]
-handlers = ["tls", "http"]
-port = 443
-
-[[services.ports]]
-handlers = ["http"]
-port = 80
-force_https = true
-
-[[services.tcp_checks]]
-grace_period = "1s"
-interval = 5000
-timeout = 2000
