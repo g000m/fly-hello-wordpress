@@ -9,11 +9,11 @@ kill_signal = 'SIGINT'
 
 [mounts]
   source="wp_content_volume"
-  destination="/var/www/html/wp-content"
+  destination="/var/www/wp-content"
   initial_size = "1gb" # 1gb is default & minimum
 
 [env]
-WORDPRESS_CONFIG_EXTRA = "define(\"MYSQL_CLIENT_FLAGS\", MYSQLI_CLIENT_SSL); define(\"WP_MEMORY_LIMIT\", \"32M\"); define(\"WP_MAX_MEMORY_LIMIT\", \"70M\");"
+WORDPRESS_CONFIG_EXTRA = "define(\"MYSQL_CLIENT_FLAGS\", MYSQLI_CLIENT_SSL); define(\"WP_MEMORY_LIMIT\", \"32M\"); define(\"WP_MAX_MEMORY_LIMIT\", \"50M\");"
 
 [http_service]
   internal_port = 80
