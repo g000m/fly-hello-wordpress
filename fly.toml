@@ -13,7 +13,7 @@ kill_signal = 'SIGINT'
   initial_size = "1gb" # 1gb is default & minimum
 
 [env]
-WORDPRESS_CONFIG_EXTRA = "define(\"MYSQL_CLIENT_FLAGS\", MYSQLI_CLIENT_SSL);"
+WORDPRESS_CONFIG_EXTRA = "define(\"MYSQL_CLIENT_FLAGS\", MYSQLI_CLIENT_SSL); define(\"WP_MEMORY_LIMIT\", \"32M\"); define(\"WP_MAX_MEMORY_LIMIT\", \"70M\");"
 
 [http_service]
   internal_port = 80
